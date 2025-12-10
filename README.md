@@ -34,4 +34,3 @@ The primary goal of VELORA is to help users preview interior layouts digitally b
 
 
 
-## 🗂 Project Structure (Example)
