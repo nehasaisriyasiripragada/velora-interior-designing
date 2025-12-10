@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELORA - Design Your Space</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Additional styles specific to design page */
+        .design-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .design-header {
+            background-color: var(--secondary);
+            padding: 3rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .design-header::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.3));
+            z-index: 1;
+        }
+        
+        .design-header h1 {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .design-header p {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 1rem auto;
+        }
+        
+        .design-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .feature-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .feature-section h2 {
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-section h2 i {
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .feature-image {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .feature-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .feature-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .cta-btn {
+            background-color: var(--text);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .cta-btn i {
+            margin-right: 0.5rem;
+        }
+        
+        .cta-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .cta-btn.secondary {
+            background-color: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .cta-btn.secondary:hover {
+            background-color: var(--secondary-light);
+        }
+        
+        .testimonial-section {
+            background-color: var(--secondary);
+            padding: 3rem;
+            border-radius: 8px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .testimonial-card img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-card h4 {
+            margin: 0.5rem 0;
+            color: var(--text);
+        }
+        
+        .testimonial-card p {
+            font-style: italic;
+            color: #666;
+        }
+        
+        .stars {
+            color: gold;
+            margin: 0.5rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-couch logo-icon"></i>
+                VELORA
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('dashboard') }}">Home</a>
+                <a href="{{ url_for('modelsafter') }}">Models</a>
+                <a href="{{ url_for('designafter') }}" class="active">Design</a>
+                <a href="{{ url_for('contactafter') }}">Contact</a>
+                <!-- Dynamic Login/Profile Section -->
+                <div id="auth-section">
+                    <!-- This will be populated by JavaScript -->
+                    <a href="{{ url_for('index') }}" class="login-btn">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="design-container">
+            <div class="design-header">
+                <h1>Transform Your Space with VELORA</h1>
+                <p>Discover the future of interior design with our AI-powered tools. Whether you're starting from scratch or refreshing an existing space, we have the perfect solution for your design needs.</p>
+            </div>
+            
+            <div class="feature-section">
+                <h2><i class="fas fa-magic"></i> AI-Powered Design from Text</h2>
+                <div class="feature-grid">
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="AI Design" class="feature-image">
+                    <div class="feature-content">
+                        <h3>Describe Your Dream Space</h3>
+                        <p>Simply tell us what you're imagining - "cozy modern living room with navy accents" or "minimalist Scandinavian bedroom with natural wood tones". Our advanced AI will generate multiple design options tailored to your description.</p>
+                        <p>You can refine the results by adding more details or selecting from our style presets to guide the AI in the right direction.</p>
+                        <div class="cta-buttons">
+                            <a href="{{ url_for('prompt') }}" class="cta-btn"><i class="fas fa-wand-magic-sparkles"></i> Try AI Designer</a>
+                            <a href="{{ url_for('modelsafter') }}" class="cta-btn text"><i class="fas fa-lightbulb"></i> See Examples</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-section">
+                <h2><i class="fas fa-camera"></i> Upload Your Room Photo</h2>
+                <div class="feature-grid">
+                    <div class="feature-content">
+                        <h3>Get Personalized Recommendations</h3>
+                        <p>Already have a space you want to redesign? Upload a photo and our system will analyze your room's dimensions, lighting, and existing features to suggest furniture arrangements, color schemes, and decor options that work perfectly with what you already have.</p>
+                        <p>Our virtual staging technology lets you see how different pieces would look in your actual space before making any purchases.</p>
+                        <div class="cta-buttons">
+                            <a href="{{ url_for('upload') }}" class="cta-btn"><i class="fas fa-cloud-upload-alt"></i> Upload Your Room</a>
+                        </div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Room Upload" class="feature-image">
+                </div>
+            </div>
+            
+            <div class="feature-section">
+                <h2><i class="fas fa-save"></i> Save & Manage Your Designs</h2>
+                <div class="feature-grid">
+                    <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Saved Designs" class="feature-image">
+                    <div class="feature-content">
+                        <h3>Your Design Portfolio</h3>
+                        <p>All your created designs are saved in your personal dashboard. Revisit them anytime, make adjustments, or share with friends and family for feedback. Our system keeps track of your style preferences to make future designs even more tailored to your taste.</p>
+                        <p>Save your favorite furniture pieces and decor items to curated collections for easy reference when you're ready to shop.</p>
+                        <div class="cta-buttons">
+                            <a href="{{ url_for('projects') }}" class="cta-btn"><i class="fas fa-folder-open"></i> View Saved Designs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-section">
+                <h2>What Our Users Say</h2>
+                <p>Join thousands of happy customers who transformed their spaces with VELORA</p>
+                
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah J.">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Sarah J.</h4>
+                        <p>"The AI designer understood exactly what I meant by 'bohemian but not too cluttered'. Saved me so much time and money!"</p>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael T.">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Michael T.</h4>
+                        <p>"Uploaded my awkward living room layout and got three perfect furniture arrangements. Game changer!"</p>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya K.">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <h4>Priya K.</h4>
+                        <p>"As someone with no design experience, this made redecorating my apartment actually fun instead of stressful."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>VELORA</h3>
+                <p>Creating beautiful, functional spaces that stand the test of time through thoughtful design and meticulous craftsmanship.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-houzz"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="models.html">Models</a>
+                <a href="login.html">Login/Signup</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Design Avenue</p>
+                <p><i class="fas fa-phone"></i> (212) 555-1234</p>
+                <p><i class="fas fa-envelope"></i> info@veloradesign.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 VELORA Interior Design. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

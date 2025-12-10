@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELORA - Models</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-couch logo-icon"></i>
+                VELORA
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('dashboard') }}">Home</a>
+                <a href="{{ url_for('modelsafter') }}" class="active">Models</a>
+                <a href="{{ url_for('designafter') }}">Design</a>
+                <a href="{{ url_for('contactafter') }}">Contact</a>
+                <!-- Dynamic Login/Profile Section -->
+                <div id="auth-section">
+                    <!-- This will be populated by JavaScript -->
+                    <a href="{{ url_for('index') }}" class="login-btn">Logout</a>
+                </div>
+              
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="models-header">
+            <div class="section-title">
+                <h2>Our Design Models</h2>
+            </div>
+            
+            <div class="filter-container">
+                <div class="filter-dropdown">
+                    <button class="filter-btn">Filter: All Rooms <i class="fas fa-chevron-down"></i></button>
+                    <div class="filter-options">
+                        <button class="filter-option active" data-filter="all">All Rooms</button>
+                        <button class="filter-option" data-filter="living">Living Room</button>
+                        <button class="filter-option" data-filter="bedroom">Bedroom</button>
+                        <button class="filter-option" data-filter="dining">Dining</button>
+                        <button class="filter-option" data-filter="bathroom">Bathroom</button>
+                        <button class="filter-option" data-filter="kitchen">Kitchen</button>
+                        <button class="filter-option" data-filter="specialty">Specialty Room</button>
+                        <button class="filter-option" data-filter="outdoor">Outdoor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="models-grid">
+            <!-- Living Room Models (6 total) -->
+            <div class="model-card" data-category="living">
+                <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace" alt="Modern Living Room" class="model-image">
+                <div class="model-info">
+                    <h3>Modern Living Room</h3>
+                    <p>Contemporary design featuring clean lines and neutral colors, perfect for urban homes.</p>
+                    <span class="model-category">Living Room</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="living">
+                <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c" alt="Industrial Loft" class="model-image">
+                <div class="model-info">
+                    <h3>Industrial Loft</h3>
+                    <p>Open concept living space with exposed brick and metal elements.</p>
+                    <span class="model-category">Living Room</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="living">
+                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc" alt="Coastal Living Room" class="model-image">
+                <div class="model-info">
+                    <h3>Coastal Living Room</h3>
+                    <p>Light and airy space with nautical elements and soft blue accents.</p>
+                    <span class="model-category">Living Room</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="living">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522044/minimallounge_d2yiqx.jpg" alt="Minimalist Lounge" class="model-image">
+                <div class="model-info">
+                    <h3>Minimalist Lounge</h3>
+                    <p>Simplified living space with only essential furniture and neutral palette.</p>
+                    <span class="model-category">Living Room</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="living">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522133/rustic_jqesbc.jpg" alt="Rustic Living Room" class="model-image">
+                <div class="model-info">
+                    <h3>Rustic Living Room</h3>
+                    <p>Warm wood tones and natural textures create a cozy mountain retreat.</p>
+                    <span class="model-category">Living Room</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="living">
+                <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3" alt="Modern Farmhouse Living" class="model-image">
+                <div class="model-info">
+                    <h3>Modern Farmhouse</h3>
+                    <p>Blend of contemporary and rustic elements with shiplap accents.</p>
+                    <span class="model-category">Living Room</span>
+                </div>
+            </div>
+
+            <!-- Bedroom Models (6 total) -->
+            <div class="model-card" data-category="bedroom">
+                <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0" alt="Cozy Bedroom" class="model-image">
+                <div class="model-info">
+                    <h3>Cozy Bedroom</h3>
+                    <p>Warm and inviting bedroom design with soft textures and calming colors.</p>
+                    <span class="model-category">Bedroom</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="bedroom">
+                <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf" alt="Guest Suite" class="model-image">
+                <div class="model-info">
+                    <h3>Guest Suite</h3>
+                    <p>Comfortable and welcoming space for visitors with en-suite bathroom.</p>
+                    <span class="model-category">Bedroom</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="bedroom">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522166/masterbed_mkdxix.jpg" alt="Master Bedroom" class="model-image">
+                <div class="model-info">
+                    <h3>Master Bedroom</h3>
+                    <p>Spacious retreat with sitting area and luxurious en-suite bathroom.</p>
+                    <span class="model-category">Bedroom</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="bedroom">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522197/bohobed_yvtbpk.jpg" alt="Bohemian Bedroom" class="model-image">
+                <div class="model-info">
+                    <h3>Bohemian Bedroom</h3>
+                    <p>Eclectic mix of patterns, textures, and global-inspired decor.</p>
+                    <span class="model-category">Bedroom</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="bedroom">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522230/modernbed_mcs2v9.jpg" alt="Modern Bedroom" class="model-image">
+                <div class="model-info">
+                    <h3>Modern Bedroom</h3>
+                    <p>Clean lines, platform bed, and minimalist decor create a serene space.</p>
+                    <span class="model-category">Bedroom</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="bedroom">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522259/kidsbed_j7yth2.jpg" alt="Kids Bedroom" class="model-image">
+                <div class="model-info">
+                    <h3>Kids Bedroom</h3>
+                    <p>Playful yet functional space with built-in storage and study area.</p>
+                    <span class="model-category">Bedroom</span>
+                </div>
+            </div>
+
+            <!-- Dining Room Models (6 total) -->
+            <div class="model-card" data-category="dining">
+                <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d" alt="Scandinavian Dining" class="model-image">
+                <div class="model-info">
+                    <h3>Scandinavian Dining</h3>
+                    <p>Clean and functional dining space with light wood elements and minimalist decor.</p>
+                    <span class="model-category">Dining</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="dining">
+                <img src="https://images.unsplash.com/photo-1604578762246-41134e37f9cc" alt="Formal Dining" class="model-image">
+                <div class="model-info">
+                    <h3>Formal Dining</h3>
+                    <p>Elegant dining space perfect for entertaining with sophisticated lighting.</p>
+                    <span class="model-category">Dining</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="dining">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522293/breakfastnook_sawbhe.avif" alt="Breakfast Nook" class="model-image">
+                <div class="model-info">
+                    <h3>Breakfast Nook</h3>
+                    <p>Cozy corner with built-in bench seating and natural light.</p>
+                    <span class="model-category">Dining</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="dining">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522325/contempory_jjrnqv.jpg" alt="Contemporary Dining" class="model-image">
+                <div class="model-info">
+                    <h3>Contemporary Dining</h3>
+                    <p>Sleek modern design with statement lighting and clean lines.</p>
+                    <span class="model-category">Dining</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="dining">
+                <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea" alt="Rustic Dining" class="model-image">
+                <div class="model-info">
+                    <h3>Rustic Dining</h3>
+                    <p>Farmhouse table with mixed seating and natural wood elements.</p>
+                    <span class="model-category">Dining</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="dining">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522358/outdoordin_l3lldj.jpg" alt="Outdoor Dining" class="model-image">
+                <div class="model-info">
+                    <h3>Outdoor Dining</h3>
+                    <p>Al fresco dining area with weather-resistant furnishings.</p>
+                    <span class="model-category">Dining</span>
+                </div>
+            </div>
+
+            <!-- Bathroom Models (6 total) -->
+            <div class="model-card" data-category="bathroom">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a" alt="Luxury Bathroom" class="model-image">
+                <div class="model-info">
+                    <h3>Luxury Bathroom</h3>
+                    <p>Spa-like bathroom featuring marble surfaces and premium fixtures.</p>
+                    <span class="model-category">Bathroom</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="bathroom">
+                <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea" alt="Modern Bathroom" class="model-image">
+                <div class="model-info">
+                    <h3>Modern Bathroom</h3>
+                    <p>Clean lines, floating vanity, and walk-in shower with glass enclosure.</p>
+                    <span class="model-category">Bathroom</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="bathroom">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522391/powder_mv9j6g.jpg" alt="Powder Room" class="model-image">
+                <div class="model-info">
+                    <h3>Powder Room</h3>
+                    <p>Small guest bathroom with bold wallpaper and vessel sink.</p>
+                    <span class="model-category">Bathroom</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="bathroom">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522453/freestanding_enxqwl.jpg" alt="Freestanding Tub" class="model-image">
+                <div class="model-info">
+                    <h3>Freestanding Tub</h3>
+                    <p>Clawfoot tub as the centerpiece with subway tile surround.</p>
+                    <span class="model-category">Bathroom</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="bathroom">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522608/spa_r5utba.webp" alt="Spa Bathroom" class="model-image">
+                <div class="model-info">
+                    <h3>Spa Bathroom</h3>
+                    <p>Steam shower, heated floors, and natural stone finishes.</p>
+                    <span class="model-category">Bathroom</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="bathroom">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522639/kidsbath_z0njnv.jpg" alt="Kids Bathroom" class="model-image">
+                <div class="model-info">
+                    <h3>Kids Bathroom</h3>
+                    <p>Fun and functional with double sinks and ample storage.</p>
+                    <span class="model-category">Bathroom</span>
+                </div>
+            </div>
+
+            <!-- Kitchen Models (6 total) -->
+            <div class="model-card" data-category="kitchen">
+                <img src="https://images.unsplash.com/photo-1602028915047-37269d1a73f7" alt="Modern Kitchen" class="model-image">
+                <div class="model-info">
+                    <h3>Modern Kitchen</h3>
+                    <p>Sleek kitchen design with modern appliances and efficient storage solutions.</p>
+                    <span class="model-category">Kitchen</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="kitchen">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522649/farmhouse_seugg1.avif" alt="Farmhouse Kitchen" class="model-image">
+                <div class="model-info">
+                    <h3>Farmhouse Kitchen</h3>
+                    <p>Apron-front sink, open shelving, and shaker-style cabinetry.</p>
+                    <span class="model-category">Kitchen</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="kitchen">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522680/galley_w19dvi.jpg" alt="Galley Kitchen" class="model-image">
+                <div class="model-info">
+                    <h3>Galley Kitchen</h3>
+                    <p>Efficient narrow layout with parallel countertops and ample storage.</p>
+                    <span class="model-category">Kitchen</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="kitchen">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522692/openconcept_kufr8h.jpg" alt="Open Concept Kitchen" class="model-image">
+                <div class="model-info">
+                    <h3>Open Concept Kitchen</h3>
+                    <p>Seamless flow between kitchen, dining and living areas with island seating.</p>
+                    <span class="model-category">Kitchen</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="kitchen">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522770/chefs_aln4zi.jpg" alt="Chef's Kitchen" class="model-image">
+                <div class="model-info">
+                    <h3>Chef's Kitchen</h3>
+                    <p>Professional-grade appliances, large island, and custom ventilation.</p>
+                    <span class="model-category">Kitchen</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="kitchen">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522778/breakfastbar_dtfhdb.jpg" alt="Breakfast Bar" class="model-image">
+                <div class="model-info">
+                    <h3>Breakfast Bar</h3>
+                    <p>Casual eating area with pendant lighting and bar stool seating.</p>
+                    <span class="model-category">Kitchen</span>
+                </div>
+            </div>
+
+            <!-- Specialty Room Models (6 total) -->
+            <div class="model-card" data-category="specialty">
+                <img src="https://images.unsplash.com/photo-1627257058769-0a99529e4312" alt="Home Gym" class="model-image">
+                <div class="model-info">
+                    <h3>Home Gym</h3>
+                    <p>Well-equipped exercise space with rubber flooring and mirrored walls.</p>
+                    <span class="model-category">Specialty Room</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="specialty">
+                <img src="https://plus.unsplash.com/premium_photo-1675615667883-38c070716700" alt="Home Theater" class="model-image">
+                <div class="model-info">
+                    <h3>Home Theater</h3>
+                    <p>Premium entertainment space with acoustic treatments and mood lighting.</p>
+                    <span class="model-category">Specialty Room</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="specialty">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522830/studyroom_wv4oqe.jpg" alt="Study Room" class="model-image">
+                <div class="model-info">
+                    <h3>Study Room</h3>
+                    <p>Productive workspace with built-in shelving and natural light.</p>
+                    <span class="model-category">Specialty Room</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="specialty">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522838/ZhZJSzjCgu4jzuCR_2_mgb6em.avif" alt="Walk-in Closet" class="model-image">
+                <div class="model-info">
+                    <h3>Walk-in Closet</h3>
+                    <p>Luxurious dressing area with custom cabinetry and island storage.</p>
+                    <span class="model-category">Specialty Room</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="specialty">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522866/homelibrary_fhfyma.jpg" alt="Library" class="model-image">
+                <div class="model-info">
+                    <h3>Home Library</h3>
+                    <p>Cozy reading nook with floor-to-ceiling bookshelves and ladder.</p>
+                    <span class="model-category">Specialty Room</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="specialty">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522920/wine_cellar_bcmsqe.jpg" alt="Wine Cellar" class="model-image">
+                <div class="model-info">
+                    <h3>Wine Cellar</h3>
+                    <p>Temperature-controlled storage with tasting area and elegant display.</p>
+                    <span class="model-category">Specialty Room</span>
+                </div>
+            </div>
+
+            <!-- Outdoor Models (6 total) -->
+            <div class="model-card" data-category="outdoor">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522930/modernpatio_opj80h.jpg" alt="Modern Patio" class="model-image">
+                <div class="model-info">
+                    <h3>Modern Patio</h3>
+                    <p>Seamless indoor-outdoor living with weather-resistant furnishings.</p>
+                    <span class="model-category">Outdoor</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="outdoor">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522938/pool_area_ympbli.jpg" alt="Pool Area" class="model-image">
+                <div class="model-info">
+                    <h3>Pool Area</h3>
+                    <p>Luxurious poolside lounge with cabana and outdoor kitchen.</p>
+                    <span class="model-category">Outdoor</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="outdoor">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744522946/outdoorkitchen_hkuppq.avif" alt="Outdoor Kitchen" class="model-image">
+                <div class="model-info">
+                    <h3>Outdoor Kitchen</h3>
+                    <p>Fully equipped cooking space with grill, refrigerator, and bar seating.</p>
+                    <span class="model-category">Outdoor</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="outdoor">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744523014/gardenoasis_qbv88c.jpg" alt="Garden Oasis" class="model-image">
+                <div class="model-info">
+                    <h3>Garden Oasis</h3>
+                    <p>Lush landscaping with water feature and comfortable seating.</p>
+                    <span class="model-category">Outdoor</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="outdoor">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744523022/fire_pit_area_tixkro.jpg" alt="Fire Pit Area" class="model-image">
+                <div class="model-info">
+                    <h3>Fire Pit Area</h3>
+                    <p>Cozy gathering space with built-in seating and stone fire feature.</p>
+                    <span class="model-category">Outdoor</span>
+                </div>
+            </div>
+
+            <div class="model-card" data-category="outdoor">
+                <img src="https://res.cloudinary.com/dlvtts98a/image/upload/v1744523029/rooftop_shqs9b.webp" alt="Rooftop Deck" class="model-image">
+                <div class="model-info">
+                    <h3>Rooftop Deck</h3>
+                    <p>Urban outdoor space with panoramic views and modern furnishings.</p>
+                    <span class="model-category">Outdoor</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>VELORA</h3>
+                <p>Creating beautiful, functional spaces that stand the test of time through thoughtful design and meticulous craftsmanship.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-houzz"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="models.html">Models</a>
+                <a href="design.html">Design</a>
+                <a href="login.html">Login/Signup</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Design Avenue, New York</p>
+                <p><i class="fas fa-phone"></i> (212) 555-1234</p>
+                <p><i class="fas fa-envelope"></i> info@veloradesign.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 VELORA Interior Design. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="/static/js/app.js">
+        document.addEventListener('DOMContentLoaded', function() {
+    const filterDropdown = document.querySelector('.filter-dropdown');
+    const filterBtn = document.querySelector('.filter-btn');
+    const filterOptions = document.querySelectorAll('.filter-option');
+    const modelCards = document.querySelectorAll('.model-card');
+    
+    // Toggle dropdown when button is clicked
+    filterBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        filterDropdown.classList.toggle('active');
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function() {
+        filterDropdown.classList.remove('active');
+    });
+    
+    // Filter models when an option is selected
+    filterOptions.forEach(option => {
+        option.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            // Remove active class from all options
+            filterOptions.forEach(opt => opt.classList.remove('active'));
+            
+            // Add active class to clicked option
+            this.classList.add('active');
+            
+            // Get the filter value (lowercase for consistency)
+            const filterValue = this.getAttribute('data-filter').toLowerCase();
+            
+            // Filter the models
+            modelCards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category').toLowerCase();
+                
+                if (filterValue === 'all') {
+                    card.style.display = 'block';
+                } else {
+                    if (cardCategory === filterValue) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+            
+            // Update button text
+            filterBtn.innerHTML = `Filter: ${this.textContent} <i class="fas fa-chevron-down"></i>`;
+            
+            // Close the dropdown
+            filterDropdown.classList.remove('active');
+        });
+    });
+});
+    </script>
+</body>
+</html>

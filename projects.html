@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELORA - My Projects</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .projects-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .projects-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .project-info {
+            padding: 1.5rem;
+        }
+        
+        .project-meta {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 4rem;
+            background: var(--secondary);
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-couch logo-icon"></i>
+                VELORA
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('modelsafter') }}">Models</a>
+                <a href="{{ url_for('designafter') }}">Design</a>
+                <a href="{{ url_for('contactafter') }}">Contact</a>
+                <!-- Dynamic Login/Profile Section -->
+                <div id="auth-section">
+                    <!-- This will be populated by JavaScript -->
+                    <a href="{{ url_for('index') }}" class="login-btn">Logout</a>
+                </div>
+                
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="projects-container">
+            <div class="projects-header">
+                <h1>My Design Projects</h1>
+                <p>All your generated designs in one place</p>
+            </div>
+            
+            {% if designs %}
+            <div class="projects-grid">
+                {% for filename, data in designs %}
+                <div class="project-card">
+                    <img src="{{ data.filepath }}" alt="Generated design" class="project-image">
+                    <div class="project-info">
+                        <h3>Design #{{ loop.index }}</h3>
+                        <p>{{ data.prompt }}</p>
+                        <div class="project-meta">
+                            <i class="far fa-calendar-alt"></i> {{ data.created_at }}
+                        </div>
+                        <div class="project-actions">
+                            <a href="{{ data.filepath }}" download class="view-btn" style="margin-top: 1rem; display: inline-block;">Download</a>
+                            <button class="view-btn outline share-btn" data-url="{{ data.filepath }}" style="margin-top: 1rem;">Share</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <h2>No designs yet</h2>
+                <p>You haven't generated any designs yet. Start creating your first design!</p>
+                <a href="{{ url_for('design') }}" class="view-btn" style="margin-top: 1.5rem;">Create Design</a>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer>
+        <!-- Same footer as other pages -->
+    </footer>
+
+    <script src="/static/js/app.js">
+        // Share functionality
+        document.querySelectorAll('.share-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const url = window.location.origin + this.getAttribute('data-url');
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('Design link copied to clipboard!');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

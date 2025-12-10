@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Psychology of Color in Spaces | VELORA</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-couch logo-icon"></i>
+                VELORA
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('models') }}">Models</a>
+                <a href="{{ url_for('design') }}">Design</a>
+                <a href="{{ url_for('contact') }}">Contact</a>
+                <!-- Dynamic Login/Profile Section -->
+                <div id="auth-section">
+                    <!-- This will be populated by JavaScript -->
+                    <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+                </div>
+
+         
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-container">
+        <article>
+            <header class="article-header">
+                <p style="color: var(--accent); margin-bottom: 0.5rem;">DESIGN JOURNAL</p>
+                <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--title-color);">The Psychology of Color in Spaces</h1>
+                <p style="color: var(--light-text);">January, 2025 | 5 min read</p>
+            </header>
+            
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Color Psychology" class="article-image">
+            
+            <div class="article-content">
+                <p>Color is the most immediate and emotional element of interior design. Before we register furniture arrangements or architectural details, color creates an instant atmosphere that directly impacts our mood and perception of space.</p>
+                
+                <h2 style="color: var(--title-color); margin: 2rem 0 1rem;">The Science Behind Color Perception</h2>
+                <p>Research from environmental psychology demonstrates that color affects us on both physiological and psychological levels. Warm colors (reds, oranges, yellows) actually increase blood pressure and heart rate slightly, while cool colors (blues, greens) have a calming effect.</p>
+                
+                <h2 style="color: var(--title-color); margin: 2rem 0 1rem;">Practical Applications</h2>
+                <p>In residential spaces, we recommend:</p>
+                <ul style="margin-bottom: 1.5rem; padding-left: 1.5rem;">
+                    <li style="margin-bottom: 0.5rem;"><strong>Bedrooms:</strong> Soft blues or greens promote relaxation and better sleep</li>
+                    <li style="margin-bottom: 0.5rem;"><strong>Home Offices:</strong> Greens enhance focus and reduce eye strain</li>
+                    <li style="margin-bottom: 0.5rem;"><strong>Dining Rooms:</strong> Warm reds and oranges stimulate appetite and conversation</li>
+                    <li><strong>Entryways:</strong> Bright yellows create an uplifting first impression</li>
+                </ul>
+                
+                <h2 style="color: var(--title-color); margin: 2rem 0 1rem;">Cultural Considerations</h2>
+                <p>Our AI design system incorporates cultural color associations when working with international clients. For example, while white represents purity in Western cultures, it's associated with mourning in some Eastern cultures. These nuances are crucial for creating spaces that feel authentically comforting.</p>
+                
+                <p>The most successful color palettes tell a story about the inhabitants while respecting the psychological needs of each space. At VELORA, we use advanced color analysis tools to predict how different hues will interact with your specific lighting conditions throughout the day.</p>
+            </div>
+            
+            <a href="{{ url_for('index') }}" class="back-btn">
+                <i class="fas fa-arrow-left" style="margin-right: 0.5rem;"></i> Back to Home
+            </a>
+        </article>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>VELORA</h3>
+                <p>Creating beautiful, functional spaces that stand the test of time through thoughtful design and meticulous craftsmanship.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-houzz"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="models.html">Models</a>
+                <a href="login.html">Log-in</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Design Avenue</p>
+                <p><i class="fas fa-phone"></i> (212) 555-1234</p>
+                <p><i class="fas fa-envelope"></i> info@veloradesign.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 VELORA Interior Design. All rights reserved.
+        </div>
+    </footer>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

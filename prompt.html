@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELORA - AI Design Studio</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-couch logo-icon"></i>
+                VELORA
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('dashboard') }}">Home</a>
+                <a href="{{ url_for('modelsafter') }}">Models</a>
+                <a href="{{ url_for('designafter') }}">Design</a>
+                <a href="{{ url_for('contactafter') }}">Contact</a>
+                <!-- Dynamic Login/Profile Section -->
+                <div id="auth-section">
+                    <!-- This will be populated by JavaScript -->
+                    <a href="{{ url_for('index') }}" class="login-btn">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- AI Design Generator Section -->
+        <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')">
+            <div class="hero-content">
+                <h1>AI-Powered Design Studio</h1>
+                <p>Generate custom interior designs instantly with our AI technology. Describe your vision and see it come to life.</p>
+            </div>
+        </section>
+
+        <!-- Design Generator Form -->
+        <section style="padding: 5rem 0;">
+            <div class="section-title">
+                <h2>Create Your Design</h2>
+            </div>
+            <div class="design-form-container">
+                <form id="designForm" action="/generate-design" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="designPrompt">Describe your ideal space:</label>
+                        <textarea id="designPrompt" name="designPrompt" rows="4" required placeholder="e.g., 'A cozy Scandinavian bedroom with wooden flooring, white walls, and minimalist decor'"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="stylePreference">Preferred Style:</label>
+                        <select id="stylePreference" name="stylePreference">
+                            <option value="modern">Modern</option>
+                            <option value="scandinavian">Scandinavian</option>
+                            <option value="industrial">Industrial</option>
+                            <option value="bohemian">Bohemian</option>
+                            <option value="minimalist">Minimalist</option>
+                            <option value="traditional">Traditional</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="colorScheme">Color Scheme:</label>
+                        <select id="colorScheme" name="colorScheme">
+                            <option value="neutral">Neutral</option>
+                            <option value="warm">Warm</option>
+                            <option value="cool">Cool</option>
+                            <option value="vibrant">Vibrant</option>
+                            <option value="monochrome">Monochrome</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="view-btn" id="generateBtn">Generate Design</button>
+                </form>
+                
+                <div id="loadingIndicator" style="display: none; text-align: center; margin-top: 2rem;">
+                    <div class="spinner"></div>
+                    <p>Generating your design... This may take a moment.</p>
+                </div>
+                
+                <div id="resultContainer" style="display: none; margin-top: 3rem;">
+                    <h3>Your Generated Design</h3>
+                    <div class="design-result">
+                        <img id="generatedImage" src="" alt="Generated design" style="max-width: 100%; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <div class="design-actions">
+                            <button id="saveDesign" class="view-btn">Save Design</button>
+                            <button id="regenerate" class="view-btn outline">Try Again</button>
+                            <button id="shareDesign" class="view-btn outline">Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Gallery -->
+        <section style="padding: 5rem 0; background-color: var(--secondary);">
+            <div class="section-title">
+                <h2>Inspiration Gallery</h2>
+            </div>
+            <div class="models-grid">
+                <div class="model-card">
+                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Modern Living Room" class="model-image">
+                    <div class="model-info">
+                        <h3>Modern Elegance</h3>
+                        <p>Prompt: "Spacious living room with floor-to-ceiling windows, neutral tones, and contemporary furniture"</p>
+                    </div>
+                </div>
+                
+                <div class="model-card">
+                    <img src="https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Cozy Bedroom" class="model-image">
+                    <div class="model-info">
+                        <h3>Cozy Retreat</h3>
+                        <p>Prompt: "Warm bedroom with wooden accents, soft textiles, and ambient lighting"</p>
+                    </div>
+                </div>
+                
+                <div class="model-card">
+                    <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Minimalist Workspace" class="model-image">
+                    <div class="model-info">
+                        <h3>Productive Minimalism</h3>
+                        <p>Prompt: "Home office with clean lines, ample natural light, and ergonomic furniture"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Same footer as index.html -->
+    </footer>
+
+    <script>
+        document.getElementById('designForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const generateBtn = document.getElementById('generateBtn');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const resultContainer = document.getElementById('resultContainer');
+            const generatedImage = document.getElementById('generatedImage');
+            
+            // Reset and prepare UI
+            generateBtn.disabled = true;
+            loadingIndicator.style.display = 'block';
+            resultContainer.style.display = 'none';
+            generatedImage.src = '';
+            
+            try {
+                // Get form data
+                const formData = new FormData(this);
+                const prompt = formData.get('designPrompt');
+                
+                if (!prompt || prompt.trim().length < 10) {
+                    throw new Error('Please provide a detailed description (at least 10 characters)');
+                }
+                
+                // Add timestamp to prevent caching
+                formData.append('timestamp', new Date().getTime());
+                
+                const response = await fetch('/generate-design', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.error || `Server responded with status ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (!result.success) {
+                    throw new Error(result.error || 'Design generation failed');
+                }
+                
+                // Display the generated image with cache busting
+                generatedImage.src = result.image_url + '?' + new Date().getTime();
+                generatedImage.alt = `Generated design: ${result.prompt}`;
+                
+                // Store the design data for save/share functionality
+                generatedImage.dataset.designId = result.image_url.split('/').pop();
+                generatedImage.dataset.prompt = result.prompt;
+                
+                resultContainer.style.display = 'block';
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+                
+            } catch (error) {
+                console.error('Generation error:', error);
+                showError(error.message || 'Failed to generate design. Please try again.');
+            } finally {
+                generateBtn.disabled = false;
+                loadingIndicator.style.display = 'none';
+            }
+        });
+        
+        document.getElementById('regenerate').addEventListener('click', function() {
+            document.getElementById('designForm').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        document.getElementById('saveDesign').addEventListener('click', async function() {
+            const generatedImage = document.getElementById('generatedImage');
+            
+            if (!generatedImage.src) {
+                showError('No design to save. Please generate one first.');
+                return;
+            }
+            
+            try {
+                // In a real implementation, this would call your backend
+                const response = await fetch('/save-design', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        image_url: generatedImage.src.split('?')[0],
+                        prompt: generatedImage.dataset.prompt,
+                        design_id: generatedImage.dataset.designId
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to save design');
+                }
+                
+                showSuccess('Design saved to your profile!');
+                
+            } catch (error) {
+                console.error('Save error:', error);
+                showError('Failed to save design. Please try again.');
+            }
+        });
+        
+        document.getElementById('shareDesign').addEventListener('click', function() {
+            const generatedImage = document.getElementById('generatedImage');
+            
+            if (!generatedImage.src) {
+                showError('No design to share. Please generate one first.');
+                return;
+            }
+            
+            try {
+                const designUrl = window.location.origin + generatedImage.src.split('?')[0];
+                navigator.clipboard.writeText(designUrl).then(() => {
+                    showSuccess('Share link copied to clipboard!');
+                }).catch(() => {
+                    // Fallback if clipboard API fails
+                    prompt('Copy this link to share:', designUrl);
+                });
+            } catch (error) {
+                console.error('Share error:', error);
+                showError('Failed to share design. Please try again.');
+            }
+        });
+        
+        // Helper functions
+        function showError(message) {
+            const errorElement = document.createElement('div');
+            errorElement.className = 'error-message';
+            errorElement.textContent = message;
+            
+            // Remove any existing error messages
+            document.querySelectorAll('.error-message').forEach(el => el.remove());
+            
+            // Add to form
+            document.getElementById('designForm').appendChild(errorElement);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                errorElement.remove();
+            }, 5000);
+        }
+        
+        function showSuccess(message) {
+            alert(message); // In production, replace with a nicer notification system
+        }
+        
+        // Add some CSS for error messages
+        const style = document.createElement('style');
+        style.textContent = `
+            .error-message {
+                color: #dc3545;
+                background-color: #f8d7da;
+                border: 1px solid #f5c6cb;
+                padding: 0.75rem 1.25rem;
+                margin-top: 1rem;
+                border-radius: 0.25rem;
+                animation: fadeIn 0.3s ease-in-out;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

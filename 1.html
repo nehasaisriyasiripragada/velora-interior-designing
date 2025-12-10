@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELORA - Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Additional styles specific to dashboard */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .dashboard-welcome {
+            background-color: var(--secondary);
+            padding: 3rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .dashboard-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .feature-content {
+            padding: 1.5rem;
+        }
+        
+        .view-saved-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1rem;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+        
+        .view-saved-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        /* Chatbot Widget Styles */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 380px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            color: var(--text, #333);
+        }
+
+        .chatbot-widget.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .chatbot-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chatbot-header {
+            background-color: #34495e;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .chatbot-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+
+        .chatbot-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chatbot-messages::-webkit-scrollbar-thumb {
+            background-color: #bbbbbb;
+            border-radius: 10px;
+        }
+
+        .user-message {
+            background-color: #f0f7ff;
+            border-radius: 18px 18px 0 18px;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            max-width: 80%;
+            margin-left: auto;
+            font-size: 0.9rem;
+        }
+
+        .bot-message {
+            background-color: #f8f9fa;
+            border-radius: 18px 18px 18px 0;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            max-width: 80%;
+            margin-right: auto;
+            font-size: 0.9rem;
+            border-left: 3px solid #34495e;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .chatbot-input textarea {
+            flex-grow: 1;
+            border: 1px solid #e0e0e0;
+            border-radius: 18px;
+            padding: 10px 15px;
+            resize: none;
+            max-height: 100px;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        .chatbot-input textarea:focus {
+            outline: none;
+            border-color: #34495e;
+        }
+
+        .chatbot-send {
+            background-color: #34495e;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .chatbot-send:hover {
+            background-color: #2c3e50;
+        }
+
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #34495e;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1001;
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+            background-color: #2c3e50;
+        }
+
+        .typing-indicator {
+            display: flex;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            margin-right: auto;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #999;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typingAnimation 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typingAnimation {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Suggested results styling */
+        .suggested-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .suggested-question {
+            background-color: #f0f7ff;
+            border: 1px solid #d0e3ff;
+            border-radius: 16px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .suggested-question:hover {
+            background-color: #d0e3ff;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .chatbot-widget {
+                width: 90%;
+                right: 5%;
+                bottom: 20px;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-couch logo-icon"></i>
+                VELORA
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('dashboard') }}" class="active">Home</a>
+                <a href="{{ url_for('modelsafter') }}">Models</a>
+                <a href="{{ url_for('designafter') }}">Design</a>
+                <a href="{{ url_for('contactafter') }}">Contact</a>
+                <!-- Dynamic Login/Profile Section -->
+                <div id="auth-section">
+                    <!-- This will be populated by JavaScript -->
+                    <a href="{{ url_for('index') }}" class="login-btn">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="dashboard-container">
+            <div class="dashboard-welcome">
+                <h1>✨ Welcome to Your Virtual Interior Designer!</h1>
+                <p>Here's what you can do:</p>
+            </div>
+            
+            <div class="dashboard-features">
+                <div class="feature-card">
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Design with AI" class="feature-image">
+                    <div class="feature-content">
+                        <h3>Design with a Prompt</h3>
+                        <p>Just describe your dream space — our AI turns words into stunning designs!</p>
+                        <a href="{{ url_for('prompt') }}" class="view-btn" style="margin-top: 1rem; display: inline-block;">Try It Now</a>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <img src="https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Upload Room" class="feature-image">
+                    <div class="feature-content">
+                        <h3>Upload Your Room</h3>
+                        <p>Upload a photo of your room and get personalized interior design suggestions.</p>
+                        <a href="{{ url_for('upload') }}" class="view-btn" style="margin-top: 1rem; display: inline-block;">Upload Photo</a>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Personalized Dashboard" class="feature-image">
+                    <div class="feature-content">
+                        <h3>Your Personalized Dashboard</h3>
+                        <p>Manage your preferences and revisit your past projects — all in one place!</p>
+                        <a href="{{ url_for('projects') }}" class="view-btn" style="margin-top: 1rem; display: inline-block;">View Saved Designs</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Chatbot Widget -->
+    <button class="chatbot-toggle" id="chatbotToggle">
+        <i class="fas fa-comments"></i>
+    </button>
+
+    <div class="chatbot-widget" id="chatbotWidget">
+        <div class="chatbot-container">
+            <div class="chatbot-header">
+                <h3>VELORA Design Assistant</h3>
+                <button class="chatbot-close" id="chatbotClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <!-- Messages will be added here by JavaScript -->
+            </div>
+            <div class="chatbot-input">
+                <textarea id="chatbotInput" placeholder="Ask about interior design..." rows="1"></textarea>
+                <button class="chatbot-send" id="chatbotSend">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>VELORA</h3>
+                <p>Creating beautiful, functional spaces that stand the test of time through thoughtful design and meticulous craftsmanship.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-houzz"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="models.html">Models</a>
+                <a href="login.html">Login/Signup</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Design Avenue</p>
+                <p><i class="fas fa-phone"></i> (212) 555-1234</p>
+                <p><i class="fas fa-envelope"></i> info@veloradesign.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 VELORA Interior Design. All rights reserved.
+        </div>
+    </footer>
+    <script>
+        // Console log to verify script loading
+        console.log("Chatbot script loading...");
+        
+        // Design knowledge base - can be expanded as needed
+        const designKnowledge = {
+            welcomeMessage: "👋 Welcome to VELORA! I'm your personal design assistant. I can help with interior design ideas, style recommendations, or answer questions about our services. What can I help you with today?",
+            
+            // Design styles information
+            styles: {
+                scandinavian: {
+                    description: "Scandinavian design emphasizes clean lines, minimalism, and functionality with a focus on light colors, natural materials, and simplicity.",
+                    keyElements: ["Light wood finishes", "Neutral colors", "Clean lines", "Cozy textiles", "Minimal decoration"],
+                    recommendedFor: "Those who prefer bright, airy spaces with minimal clutter."
+                },
+                modernLuxury: {
+                    description: "Modern luxury combines contemporary design with opulent materials and finishes for a sophisticated yet comfortable atmosphere.",
+                    keyElements: ["High-quality materials", "Statement lighting", "Bold accents", "Mixed textures", "Sophisticated color palette"],
+                    recommendedFor: "Those who want an elegant, premium feel without traditional ornamentation."
+                },
+                sustainable: {
+                    description: "Sustainable design focuses on eco-friendly materials, energy efficiency, and reducing environmental impact without sacrificing style.",
+                    keyElements: ["Reclaimed materials", "Energy-efficient fixtures", "Indoor plants", "Natural fibers", "Low-VOC finishes"],
+                    recommendedFor: "Environmentally conscious clients who want healthy, eco-friendly spaces."
+                }
+            },
+            
+            // Room-specific advice
+            rooms: {
+                livingRoom: {
+                    tips: [
+                        "Start with a statement piece like a sofa and build around it.",
+                        "Layer lighting with ambient, task, and accent lights for depth.",
+                        "Use an area rug to define the space and add warmth.",
+                        "Include varied seating options for different activities and gatherings."
+                    ]
+                },
+                bedroom: {
+                    tips: [
+                        "Choose a calming color palette to promote relaxation.",
+                        "Invest in quality bedding for comfort and visual appeal.",
+                        "Incorporate blackout curtains for better sleep.",
+                        "Consider both design and storage when selecting nightstands."
+                    ]
+                },
+                kitchen: {
+                    tips: [
+                        "Focus on the work triangle (sink, stove, refrigerator) for functionality.",
+                        "Maximize storage with strategic cabinetry and organizers.",
+                        "Choose durable, easy-to-clean surfaces for countertops.",
+                        "Include adequate task lighting for food preparation areas."
+                    ]
+                },
+                bathroom: {
+                    tips: [
+                        "Prioritize water-resistant materials for longevity.",
+                        "Install proper ventilation to prevent moisture issues.",
+                        "Include storage solutions to reduce clutter.",
+                        "Consider both ambient and task lighting for different needs."
+                    ]
+                }
+            },
+            
+            // Common design questions and answers
+            faqs: {
+                "how to make a small space look bigger": "Use light colors, multi-functional furniture, and strategically placed mirrors. Keep visual clutter to a minimum and utilize vertical space with tall shelving.",
+                "what colors work well together": "For a timeless palette, try neutral backgrounds with accent colors that complement your main pieces. Blues and greens work well with wood tones, while warmer colors like terracotta add energy.",
+                "how to mix patterns": "Start with varying scales - pair larger patterns with smaller ones. Keep a consistent color palette throughout, and balance busy patterns with solid colors.",
+                "best flooring for high traffic areas": "Consider engineered hardwood, luxury vinyl plank, or porcelain tile - all offer durability and easy maintenance while maintaining style.",
+                "budget-friendly renovation tips": "Focus on impactful changes like paint, hardware updates, and lighting. Consider refacing rather than replacing cabinetry, and shop vintage for unique statement pieces."
+            },
+            
+            // VELORA services
+            services: {
+                consultation: "Our design consultation service includes a thorough assessment of your space, style preferences, and functional needs, followed by personalized recommendations.",
+                fullDesign: "Our full design service covers everything from concept development to final installation, including 3D visualizations, material selection, and project management.",
+                aiDesign: "Our AI design tool creates custom interior concepts based on your preferences, which can be refined with the help of our professional designers.",
+                shopAssistance: "Our shopping assistance service helps you source the perfect pieces for your space, with exclusive discounts from our partner vendors."
+            }
+        };
+        
+        // Suggested questions to display after welcome message
+        const suggestedQuestions = [
+            "What's Scandinavian style?",
+            "Tips for small spaces?",
+            "How do your services work?",
+            "What's trending in 2025?"
+        ];
+
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM fully loaded, initializing chatbot...");
+            
+            // DOM Elements
+            const chatbotToggle = document.getElementById('chatbotToggle');
+            const chatbotWidget = document.getElementById('chatbotWidget');
+            const chatbotClose = document.getElementById('chatbotClose');
+            const chatbotMessages = document.getElementById('chatbotMessages');
+            const chatbotInput = document.getElementById('chatbotInput');
+            const chatbotSend = document.getElementById('chatbotSend');
+            
+            // Debug element existence
+            console.log("Toggle button exists:", !!chatbotToggle);
+            console.log("Widget exists:", !!chatbotWidget);
+            
+            // Initialize chatbot
+            initializeChatbot();
+            
+            // Define all functions
+            function initializeChatbot() {
+                // Toggle chatbot visibility - add direct click handling
+                if (chatbotToggle) {
+                    console.log("Adding click listener to toggle button");
+                    chatbotToggle.onclick = function(e) {
+                        console.log("Toggle button clicked");
+                        e.preventDefault();
+                        chatbotWidget.classList.toggle('active');
+                        
+                        // If opening for first time, show welcome message
+                        if (chatbotWidget.classList.contains('active') && chatbotMessages.children.length === 0) {
+                            showWelcomeMessage();
+                        }
+                    };
+                }
+                
+                if (chatbotClose) {
+                    chatbotClose.onclick = function(e) {
+                        e.preventDefault();
+                        chatbotWidget.classList.remove('active');
+                    };
+                }
+                
+                // Auto-resize textarea
+                if (chatbotInput) {
+                    chatbotInput.oninput = function() {
+                        this.style.height = 'auto';
+                        this.style.height = (this.scrollHeight) + 'px';
+                    };
+                }
+                
+                // Send message on button click or Enter key
+                if (chatbotSend) {
+                    chatbotSend.onclick = sendMessage;
+                }
+                
+                if (chatbotInput) {
+                    chatbotInput.onkeydown = function(e) {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault();
+                            sendMessage();
+                        }
+                    };
+                }
+                
+                console.log("Chatbot initialized");
+            }
+            
+            // Show welcome message with suggested questions
+            function showWelcomeMessage() {
+                addMessage(designKnowledge.welcomeMessage, 'bot');
+                
+                // Add suggested questions
+                const suggestedDiv = document.createElement('div');
+                suggestedDiv.className = 'suggested-questions';
+                
+                suggestedQuestions.forEach(question => {
+                    const questionBtn = document.createElement('div');
+                    questionBtn.className = 'suggested-question';
+                    questionBtn.textContent = question;
+                    questionBtn.onclick = function() {
+                        // When clicked, act as if user typed this question
+                        chatbotInput.value = question;
+                        sendMessage();
+                    };
+                    suggestedDiv.appendChild(questionBtn);
+                });
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'bot-message';
+                messageDiv.appendChild(suggestedDiv);
+                chatbotMessages.appendChild(messageDiv);
+                
+                scrollToBottom();
+            }
+            
+            // Send message function
+            function sendMessage() {
+                if (!chatbotInput) return;
+                
+                const message = chatbotInput.value.trim();
+                if (message === '') return;
+                
+                // Add user message to chat
+                addMessage(message, 'user');
+                chatbotInput.value = '';
+                chatbotInput.style.height = 'auto';
+                
+                // Show typing indicator
+                showTypingIndicator();
+                
+                // Process message and get response with slight delay for natural feel
+                setTimeout(() => {
+                    const response = processMessage(message);
+                    removeTypingIndicator();
+                    addMessage(response, 'bot');
+                    
+                    // Add follow-up suggestions based on the query
+                    addFollowUpSuggestions(message);
+                }, 800);
+            }
+            
+            // Process user message and return appropriate response
+            function processMessage(message) {
+                const lowerMessage = message.toLowerCase();
+                
+                // Check for style inquiries
+                for (const style in designKnowledge.styles) {
+                    if (lowerMessage.includes(style) || 
+                        (style === 'scandinavian' && (lowerMessage.includes('scandi') || lowerMessage.includes('nordic'))) ||
+                        (style === 'modernLuxury' && (lowerMessage.includes('modern luxury') || lowerMessage.includes('luxurious')))) {
+                        return getStyleInfo(style);
+                    }
+                }
+                
+                // Check for room-specific advice
+                for (const room in designKnowledge.rooms) {
+                    if ((room === 'livingRoom' && (lowerMessage.includes('living room') || lowerMessage.includes('living area') || lowerMessage.includes('lounge'))) ||
+                        (lowerMessage.includes(room.toLowerCase().replace('room', ' room')))) {
+                        return getRoomTips(room);
+                    }
+                }
+                
+                // Check for FAQ matches
+                for (const question in designKnowledge.faqs) {
+                    if (lowerMessage.includes(question) || 
+                        stringSimilarity(lowerMessage, question) > 0.5) {
+                        return designKnowledge.faqs[question];
+                    }
+                }
+                
+                // Check for service inquiries
+                if (lowerMessage.includes('service') || lowerMessage.includes('consult') || lowerMessage.includes('design help') || 
+                   lowerMessage.includes('how much') || lowerMessage.includes('pricing') || lowerMessage.includes('cost')) {
+                    return getServiceInfo();
+                }
+                
+                // Check for greetings
+                if (lowerMessage.includes('hello') || lowerMessage.includes('hi ') || lowerMessage.includes('hey') || 
+                   lowerMessage === 'hi' || lowerMessage.includes('greetings')) {
+                    return "Hello! I'm your VELORA design assistant. How can I help with your interior design project today?";
+                }
+                
+                // Check for thank you
+                if (lowerMessage.includes('thank') || lowerMessage.includes('thanks') || lowerMessage.includes('appreciate')) {
+                    return "You're welcome! I'm happy to help with any other design questions you might have.";
+                }
+                
+                // Check for trending/popular styles
+                if (lowerMessage.includes('trend') || lowerMessage.includes('popular') || lowerMessage.includes('current style') ||
+                   lowerMessage.includes('in style') || lowerMessage.includes('in fashion')) {
+                    return "For 2025, we're seeing a rise in biophilic design with natural materials, curved furniture that adds softness, and earthy colors paired with deep jewel tones for contrast. Multifunctional spaces continue to be important in our evolving home environments.";
+                }
+                
+                // Default response for unknown queries
+                return "I'd be happy to help with that. For specific design advice tailored to your space, would you like to schedule a consultation with one of our designers? Or I can share some general tips on this topic.";
+            }
+            
+            // Get information about a specific design style
+            function getStyleInfo(style) {
+                const styleInfo = designKnowledge.styles[style];
+                return `${styleInfo.description} Key elements include ${styleInfo.keyElements.slice(0, 3).join(', ')}. It's perfect for ${styleInfo.recommendedFor}`;
+            }
+            
+            // Get tips for a specific room
+            function getRoomTips(room) {
+                const roomInfo = designKnowledge.rooms[room];
+                const tips = roomInfo.tips;
+                return `For your ${room.replace(/([A-Z])/g, ' $1').toLowerCase()}, here are two key tips: 1) ${tips[0]} 2) ${tips[1]}`;
+            }
+            
+            // Get service information
+            function getServiceInfo() {
+                return "At VELORA, we offer various design services: initial consultations ($150), full design packages (starting at $2,500), AI design concepts ($350), and shopping assistance. Each service is customized to your specific needs and space. Would you like more details about any specific service?";
+            }
+            
+            // Add follow-up suggestions based on the conversation
+            function addFollowUpSuggestions(message) {
+                const lowerMessage = message.toLowerCase();
+                let suggestions = [];
+                
+                // Customize suggestions based on user query
+                if (lowerMessage.includes('scandi') || lowerMessage.includes('nordic') || lowerMessage.includes('style')) {
+                    suggestions = ["Show me other styles", "How to mix styles?", "Best colors for this style"];
+                } else if (lowerMessage.includes('living room') || lowerMessage.includes('bedroom') || 
+                          lowerMessage.includes('kitchen') || lowerMessage.includes('bathroom')) {
+                    suggestions = ["Furniture layout tips", "Color recommendations", "Budget renovation ideas"];
+                } else if (lowerMessage.includes('service') || lowerMessage.includes('consult')) {
+                    suggestions = ["What's included in full design?", "How long does it take?", "Can I see examples?"];
+                } else {
+                    suggestions = ["Tell me about your services", "What's your design approach?", "How to start a project?"];
+                }
+                
+                // Add suggestion buttons
+                const suggestedDiv = document.createElement('div');
+                suggestedDiv.className = 'suggested-questions';
+                
+                suggestions.forEach(question => {
+                    const questionBtn = document.createElement('div');
+                    questionBtn.className = 'suggested-question';
+                    questionBtn.textContent = question;
+                    questionBtn.onclick = function() {
+                        chatbotInput.value = question;
+                        sendMessage();
+                    };
+                    suggestedDiv.appendChild(questionBtn);
+                });
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'bot-message';
+                messageDiv.appendChild(suggestedDiv);
+                chatbotMessages.appendChild(messageDiv);
+                
+                scrollToBottom();
+            }
+            
+            // Helper function to calculate string similarity (simple version)
+            function stringSimilarity(str1, str2) {
+                const len1 = str1.length;
+                const len2 = str2.length;
+                const maxLen = Math.max(len1, len2);
+                
+                if (maxLen === 0) return 1.0;
+                
+                const words1 = str1.split(' ');
+                const words2 = str2.split(' ');
+                
+                // Count matching words
+                let matches = 0;
+                for (const word1 of words1) {
+                    if (words2.includes(word1)) matches++;
+                }
+                
+                // Calculate jaccard similarity
+                const uniqueWords = new Set([...words1, ...words2]);
+                return matches / uniqueWords.size;
+            }
+            
+            // Helper functions for UI
+            function addMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = sender === 'user' ? 'user-message' : 'bot-message';
+                messageDiv.innerHTML = `<p>${text}</p>`;
+                chatbotMessages.appendChild(messageDiv);
+                scrollToBottom();
+            }
+            
+            function showTypingIndicator() {
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'typing-indicator';
+                typingDiv.id = 'typingIndicator';
+                typingDiv.innerHTML = `
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                `;
+                chatbotMessages.appendChild(typingDiv);
+                scrollToBottom();
+            }
+            
+            function removeTypingIndicator() {
+                const typingIndicator = document.getElementById('typingIndicator');
+                if (typingIndicator) typingIndicator.remove();
+            }
+            
+            function scrollToBottom() {
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+        });
+
+        // Redundant initialization outside DOMContentLoaded for extra assurance
+        // This ensures the code runs even if the DOMContentLoaded event already fired
+        (function immediateInit() {
+            console.log("Attempting immediate initialization...");
+            
+            const chatbotToggle = document.getElementById('chatbotToggle');
+            const chatbotWidget = document.getElementById('chatbotWidget');
+            
+            if (chatbotToggle && chatbotWidget) {
+                console.log("Elements found, setting up direct event handler");
+                chatbotToggle.onclick = function() {
+                    console.log("Toggle clicked (immediate handler)");
+                    chatbotWidget.classList.toggle('active');
+                };
+            } else {
+                console.log("Elements not found yet, will rely on DOMContentLoaded");
+            }
+        })();
+    </script>
+</body>
+</html>

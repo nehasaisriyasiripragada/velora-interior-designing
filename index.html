@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELORA</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-couch logo-icon"></i>
+                VELORA
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}" class="active">Home</a>
+                <a href="{{ url_for('models') }}">Models</a>
+                <a href="{{ url_for('design') }}">Design</a>
+                <a href="{{ url_for('contact') }}">Contact</a>
+                <!-- Dynamic Login/Profile Section -->
+                <div id="auth-section">
+                    <!-- This will be populated by JavaScript -->
+                    <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+                </div>
+
+                             
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')">
+            <div class="hero-content">
+                <h1>Elegant Spaces, Timeless Design</h1>
+                <p>Crafting luxurious interiors that reflect your unique style and elevate your living experience.</p>
+            </div>
+        </section>
+        <!-- Blog/Journal Section -->
+        <section style="padding: 5rem 0;">
+            <div class="section-title">
+                <h2>Design Journal</h2>
+            </div>
+            <div class="models-grid">
+                <!-- Blog Post 1 -->
+                <div class="model-card">
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Color Psychology" class="model-image">
+                    <div class="model-info">
+                        <h3>The Psychology of Color in Spaces</h3>
+                        <p style="color: var(--light-text); font-size: 0.9rem; margin-bottom: 0.5rem;">January, 2025 | 5 min read</p>
+                        <p>How different hues affect mood and perception in interior environments, with scientific insights and application tips.</p>
+                        <a href="{{ url_for('article') }}" class="view-btn" style="margin-top: 1rem;">Read Article</a>
+                    </div>
+                </div>
+
+                <!-- Blog Post 2 -->
+                <div class="model-card">
+                    <img src="https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Sustainable Design" class="model-image">
+                    <div class="model-info">
+                        <h3>Sustainable Materials for Modern Homes</h3>
+                        <p style="color: var(--light-text); font-size: 0.9rem; margin-bottom: 0.5rem;">February, 2025 | 7 min read</p>
+                        <p>Exploring eco-friendly alternatives that don't compromise on luxury or durability in high-end interiors.</p>
+                        <a href="{{ url_for('articlematerial') }}" class="view-btn" style="margin-top: 1rem;">Read Article</a>
+                    </div>
+                </div>
+
+                <!-- Blog Post 3 -->
+                <div class="model-card">
+                    <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Small Spaces" class="model-image">
+                    <div class="model-info">
+                        <h3>Maximizing Small Spaces with Intelligent Design</h3>
+                        <p style="color: var(--light-text); font-size: 0.9rem; margin-bottom: 0.5rem;">March, 2025 | 6 min read</p>
+                        <p>Clever solutions for urban dwellings that create the illusion of space without sacrificing functionality.</p>
+                        <a href="{{ url_for('articlesmall') }}" class="view-btn" style="margin-top: 1rem;">Read Article</a>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+            </div>
+        </section>
+                <!-- AI in Interior Design Section -->
+                <section style="padding: 5rem 0; background-color: var(--secondary);">
+                    <div class="section-title">
+                        <h2>AI-Enhanced Design Process</h2>
+                    </div>
+                    <div style="max-width: 1000px; margin: 0 auto; padding: 0 2rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+                            <div>
+                                <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; font-weight: 500;">The Future of Interior Design</h3>
+                                <p style="color: var(--light-text); margin-bottom: 1.5rem;">
+                                    At VELORA, we integrate cutting-edge AI technology with human creativity to deliver unparalleled design solutions. 
+                                    Our AI systems analyze thousands of design patterns, spatial relationships, and material combinations to suggest 
+                                    optimal layouts that our designers then refine with artistic sensibility.
+                                </p>
+                                <p style="color: var(--light-text); margin-bottom: 1.5rem;">
+                                    Our AI tools help us:
+                                </p>
+                                <ul style="color: var(--light-text); margin-bottom: 1.5rem; padding-left: 1.5rem;">
+                                    <li style="margin-bottom: 0.5rem;">Generate personalized design concepts in minutes</li>
+                                    <li style="margin-bottom: 0.5rem;">Predict lighting and spatial dynamics with 95% accuracy</li>
+                                    <li style="margin-bottom: 0.5rem;">Create photorealistic 3D renderings before implementation</li>
+                                    <li style="margin-bottom: 0.5rem;">Optimize material selection for durability and aesthetics</li>
+                                    <li>Continuously learn from global design trends</li>
+                                </ul>
+                            </div>
+                            <div style="background: white; padding: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="AI Design Process" style="width: 100%; height: auto;">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="section-title">
+                <h2>Ready to Transform Your Space?</h2>
+            </div>
+            <div class="cta-content">
+                <p style="color: var(--light-text); margin-bottom: 2rem;">
+                    Begin your design journey with VELORA today. Our team and AI-powered tools will create a space that perfectly reflects your vision.
+                </p>
+                <a href="{{ url_for('contact') }}" class="view-btn" style="padding: 1rem 2rem; font-size: 1.1rem; display: inline-block;">Contact</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>VELORA</h3>
+                <p>Creating beautiful, functional spaces that stand the test of time through thoughtful design and meticulous craftsmanship.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-houzz"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="models.html">Models</a>
+                <a href="login.html">Login/Signup</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Design Avenue</p>
+                <p><i class="fas fa-phone"></i> (212) 555-1234</p>
+                <p><i class="fas fa-envelope"></i> info@veloradesign.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 VELORA Interior Design. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="/static/js/app.js">
+    </script>
+</body>
+</html>

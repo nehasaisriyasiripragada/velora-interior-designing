@@ -1,0 +1,810 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELORA - Design Generator</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Additional styles specific to design generator */
+        .design-generator {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .design-steps {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .upload-section {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .room-preview-container {
+            position: relative;
+            height: 350px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+        
+        .room-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .upload-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-placeholder:hover {
+            background-color: #eaeaea;
+            border-color: var(--primary);
+        }
+        
+        .upload-icon {
+            font-size: 2rem;
+            color: #aaa;
+            margin-bottom: 0.5rem;
+        }
+        
+        .upload-text {
+            color: #777;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .preferences-section {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            font-size: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+        }
+        
+        .budget-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .budget-option {
+            padding: 0.5rem 1rem;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .budget-option:hover {
+            background-color: #eaeaea;
+        }
+        
+        .budget-option.selected {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .color-palette {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 0 0 1px #ddd;
+        }
+        
+        .color-option.selected {
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 0 1px var(--primary);
+        }
+        
+        .furniture-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+        
+        .furniture-option {
+            padding: 0.5rem;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .furniture-option:hover {
+            background-color: #eaeaea;
+        }
+        
+        .furniture-option.selected {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .generate-btn {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .generate-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .results-section {
+            display: none;
+            margin-top: 3rem;
+        }
+        
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .comparison-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .download-btn {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: block;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            background-color: var(--secondary-dark);
+        }
+        
+        .star-rating {
+            font-size: 1.5rem;
+            color: #ddd;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin: 1rem 0;
+        }
+        
+        .feedback-star {
+            transition: all 0.2s;
+        }
+        
+        .feedback-star.active,
+        .feedback-star:hover {
+            color: #ffc107;
+        }
+        
+        /* Loading spinner */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        .loading-text {
+            color: white;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Error message */
+        .error-message {
+            color: #e74c3c;
+            background-color: #fde8e6;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="logo">
+                <i class="fas fa-couch logo-icon"></i>
+                VELORA
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('dashboard') }}">Home</a>
+                <a href="{{ url_for('modelsafter') }}">Models</a>
+                <a href="{{ url_for('designafter') }}">Design</a>
+                <a href="{{ url_for('contactafter') }}">Contact</a>
+                <!-- Dynamic Login/Profile Section -->
+                <div id="auth-section">
+                    <!-- This will be populated by JavaScript -->
+                    <a href="{{ url_for('index') }}" class="login-btn">Logout</a>
+                </div>
+               
+              
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="design-generator">
+            <h1 style="text-align: center; margin-bottom: 2rem;">Create Your Perfect Space</h1>
+            
+            <div id="errorMessage" class="error-message"></div>
+            
+            <div class="design-steps">
+                <div class="upload-section">
+                    <h2 style="margin-bottom: 1.5rem; font-size: 1.3rem;">1. Upload Your Room</h2>
+                    <div class="room-preview-container">
+                        <img id="roomPreview" class="room-preview" alt="Room Preview">
+                        <div id="uploadPlaceholder" class="upload-placeholder">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <p class="upload-text">Click to upload your room image<br>or drag and drop</p>
+                        </div>
+                    </div>
+                    <input type="file" id="roomFileInput" style="display: none;" accept="image/*">
+                    <button id="uploadBtn" class="generate-btn" style="background-color: #555; color: white;">
+                        <i class="fas fa-upload"></i> Upload Image
+                    </button>
+                </div>
+                
+                <div class="preferences-section">
+                    <h2 style="margin-bottom: 1.5rem; font-size: 1.3rem;">2. Set Your Preferences</h2>
+                    
+                    <div class="form-group">
+                        <label for="styleSelect">Design Style</label>
+                        <select id="styleSelect">
+                            <option value="">Select a design style</option>
+                            <option value="modern">Modern</option>
+                            <option value="contemporary">Contemporary</option>
+                            <option value="minimalist">Minimalist</option>
+                            <option value="traditional">Traditional</option>
+                            <option value="industrial">Industrial</option>
+                            <option value="bohemian">Bohemian</option>
+                            <option value="scandinavian">Scandinavian</option>
+                            <option value="farmhouse">Farmhouse</option>
+                            <option value="midcentury modern">Mid-Century Modern</option>
+                            <option value="coastal">Coastal</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Budget Range</label>
+                        <div class="budget-options">
+                            <div class="budget-option" data-budget="$500 - $1,000">$500 - $1,000</div>
+                            <div class="budget-option" data-budget="$1,000 - $5,000">$1,000 - $5,000</div>
+                            <div class="budget-option" data-budget="$5,000 - $10,000">$5,000 - $10,000</div>
+                            <div class="budget-option" data-budget="$10,000+">$10,000+</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Color Theme</label>
+                        <div class="color-palette">
+                            <div class="color-option" style="background-color: #f5f5f5;" data-color="neutral" title="Neutral"></div>
+                            <div class="color-option" style="background-color: #e67e22;" data-color="warm" title="Warm"></div>
+                            <div class="color-option" style="background-color: #3498db;" data-color="cool" title="Cool"></div>
+                            <div class="color-option" style="background-color: #27ae60;" data-color="earthy" title="Earthy"></div>
+                            <div class="color-option" style="background-color: #e74c3c;" data-color="bold" title="Bold"></div>
+                            <div class="color-option" style="background-color: #8e44ad;" data-color="rich" title="Rich"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="roomType">Room Type</label>
+                        <select id="roomType">
+                            <option value="">Select room type</option>
+                            <option value="living room">Living Room</option>
+                            <option value="bedroom">Bedroom</option>
+                            <option value="kitchen">Kitchen</option>
+                            <option value="bathroom">Bathroom</option>
+                            <option value="dining room">Dining Room</option>
+                            <option value="home office">Home Office</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Furniture Preferences</label>
+                        <div class="furniture-options">
+                            <div class="furniture-option" data-furniture="Sofa Set">Sofa Set</div>
+                            <div class="furniture-option" data-furniture="Coffee Table">Coffee Table</div>
+                            <div class="furniture-option" data-furniture="Armchair">Armchair</div>
+                            <div class="furniture-option" data-furniture="Lighting">Lighting</div>
+                            <div class="furniture-option" data-furniture="Storage">Storage</div>
+                            <div class="furniture-option" data-furniture="Area Rug">Area Rug</div>
+                            <div class="furniture-option" data-furniture="Ceiling Fan">Ceiling Fan</div>
+                            <div class="furniture-option" data-furniture="Wall Art">Wall Art</div>
+                        </div>
+                    </div>
+                    
+                    <button id="generateBtn" class="generate-btn">
+                        <i class="fas fa-magic"></i> Generate Design
+                    </button>
+                </div>
+            </div>
+            
+            <div id="resultsSection" class="results-section">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Your Design Transformation</h2>
+                
+                <div class="comparison-container">
+                    <div>
+                        <h3 style="text-align: center;">Before</h3>
+                        <img id="beforeImage" class="comparison-image" src="" alt="Before">
+                    </div>
+                    <div>
+                        <h3 style="text-align: center;">After</h3>
+                        <img id="afterImage" class="comparison-image" src="" alt="After">
+                    </div>
+                </div>
+                <div id="feedbackSection" style="margin-top: 2rem; text-align: center;">
+                    <h3>Rate this design:</h3>
+                    <div class="star-rating">
+                        <i class="fas fa-star feedback-star" data-rating="1"></i>
+                        <i class="fas fa-star feedback-star" data-rating="2"></i>
+                        <i class="fas fa-star feedback-star" data-rating="3"></i>
+                        <i class="fas fa-star feedback-star" data-rating="4"></i>
+                        <i class="fas fa-star feedback-star" data-rating="5"></i>
+                    </div>
+                    
+                    <div id="feedbackForm" style="display: none; margin-top: 1rem;">
+                        <input type="hidden" id="finalRating">
+                        <textarea id="feedbackComments" placeholder="Any additional comments..." 
+                                  style="width: 100%; padding: 0.5rem; margin-bottom: 0.5rem;"></textarea>
+                        <button id="feedbackSubmit" class="generate-btn" style="padding: 0.5rem 1rem;">
+                            Submit Feedback
+                        </button>
+                    </div>
+                </div>
+                
+                <button id="downloadBtn" class="download-btn">
+                    <i class="fas fa-download"></i> Download Design
+                </button>
+            </div>
+        </div>
+        
+        <!-- Loading overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Generating your design... This may take a minute</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>VELORA</h3>
+                <p>Creating beautiful, functional spaces that stand the test of time through thoughtful design and meticulous craftsmanship.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-houzz"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <a href="/">Home</a>
+                <a href="/">Models</a>
+                <a href="/">Contact</a>
+                <a href="/">Logout</a>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Design Avenue</p>
+                <p><i class="fas fa-phone"></i> (212) 555-1234</p>
+                <p><i class="fas fa-envelope"></i> info@veloradesign.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 VELORA Interior Design. All rights reserved.
+        </div>
+    </footer>
+    <script>
+            // Global variables
+let currentImageData = null;
+let currentOutputData = null;
+let currentGenerationId = null;
+let roomImageUploaded = false;
+
+// DOM Elements
+const roomPreview = document.getElementById('roomPreview');
+const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+const beforeImage = document.getElementById('beforeImage');
+const afterImage = document.getElementById('afterImage');
+const resultsSection = document.getElementById('resultsSection');
+const generateBtn = document.getElementById('generateBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const styleSelect = document.getElementById('styleSelect');
+const roomTypeSelect = document.getElementById('roomType');
+const budgetOptions = document.querySelectorAll('.budget-option');
+const colorOptions = document.querySelectorAll('.color-option');
+const furnitureOptions = document.querySelectorAll('.furniture-option');
+const loadingOverlay = document.getElementById('loadingOverlay');
+const errorMessage = document.getElementById('errorMessage');
+const feedbackStars = document.querySelectorAll('.feedback-star');
+const feedbackForm = document.getElementById('feedbackForm');
+const feedbackComments = document.getElementById('feedbackComments');
+const finalRating = document.getElementById('finalRating');
+const feedbackSubmit = document.getElementById('feedbackSubmit');
+
+// State
+let selectedBudget = null;
+let selectedColor = null;
+let selectedFurniture = [];
+let currentRating = 0;
+
+// Helper function to show error
+function showError(message) {
+    errorMessage.textContent = message;
+    errorMessage.style.display = 'block';
+    setTimeout(() => {
+        errorMessage.style.display = 'none';
+    }, 5000);
+}
+
+// Upload image handler
+document.getElementById('uploadBtn').addEventListener('click', function() {
+    document.getElementById('roomFileInput').click();
+});
+
+// Drag and drop functionality
+const uploadContainer = document.querySelector('.room-preview-container');
+uploadContainer.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    this.style.borderColor = 'var(--primary)';
+    uploadPlaceholder.style.backgroundColor = '#f0f0f0';
+});
+
+uploadContainer.addEventListener('dragleave', function(e) {
+    e.preventDefault();
+    this.style.borderColor = '#ddd';
+    uploadPlaceholder.style.backgroundColor = '#f5f5f5';
+});
+
+uploadContainer.addEventListener('drop', function(e) {
+    e.preventDefault();
+    this.style.borderColor = '#ddd';
+    uploadPlaceholder.style.backgroundColor = '#f5f5f5';
+    
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.match('image.*')) {
+        handleImageUpload(file);
+    } else {
+        showError('Please upload a valid image file');
+    }
+});
+
+document.getElementById('roomFileInput').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        if (!file.type.match('image.*')) {
+            showError('Please upload an image file');
+            return;
+        }
+        handleImageUpload(file);
+    }
+});
+
+async function handleImageUpload(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    try {
+        const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        if (response.status === 200) {
+            // Create object URL from base64 data
+            const imageUrl = `data:image/jpeg;base64,${data.image_data}`;
+            
+            roomPreview.src = imageUrl;
+            roomPreview.style.display = 'block';
+            uploadPlaceholder.style.display = 'none';
+            roomImageUploaded = true;
+            
+            // Store the image data for later use
+            currentImageData = data.image_data;
+        } else {
+            showError(data.error || 'Upload failed');
+            document.getElementById('roomFileInput').value = '';
+        }
+    } catch (error) {
+        showError('Error uploading image. Please try again.');
+        console.error(error);
+        document.getElementById('roomFileInput').value = '';
+    }
+}
+
+// Budget selection
+budgetOptions.forEach(option => {
+    option.addEventListener('click', function() {
+        budgetOptions.forEach(opt => opt.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedBudget = this.getAttribute('data-budget');
+    });
+});
+
+// Color selection
+colorOptions.forEach(option => {
+    option.addEventListener('click', function() {
+        colorOptions.forEach(opt => opt.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedColor = this.getAttribute('data-color');
+    });
+});
+
+// Furniture selection (multiple)
+furnitureOptions.forEach(option => {
+    option.addEventListener('click', function() {
+        this.classList.toggle('selected');
+        const furnitureType = this.getAttribute('data-furniture');
+        
+        if (this.classList.contains('selected')) {
+            selectedFurniture.push(furnitureType);
+        } else {
+            selectedFurniture = selectedFurniture.filter(item => item !== furnitureType);
+        }
+    });
+});
+
+// Feedback star rating
+feedbackStars.forEach(star => {
+    star.addEventListener('click', function() {
+        const rating = parseInt(this.getAttribute('data-rating'));
+        currentRating = rating;
+        finalRating.value = rating;
+        
+        // Update stars visual state
+        feedbackStars.forEach(s => {
+            const starRating = parseInt(s.getAttribute('data-rating'));
+            if (starRating <= rating) {
+                s.classList.add('active');
+            } else {
+                s.classList.remove('active');
+            }
+        });
+        
+        // Show the feedback form
+        feedbackForm.style.display = 'block';
+    });
+});
+
+// Submit feedback
+feedbackSubmit.addEventListener('click', async function() {
+    try {
+        const response = await fetch('/feedback', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                rating: currentRating,
+                comments: feedbackComments.value,
+                generation_id: currentGenerationId
+            })
+        });
+        
+        const data = await response.json();
+        if (response.status === 200) {
+            feedbackForm.innerHTML = '<p>Thank you for your feedback!</p>';
+        } else {
+            showError(data.error || 'Failed to submit feedback');
+        }
+    } catch (error) {
+        showError('Error submitting feedback');
+        console.error(error);
+    }
+});
+
+// Generate design handler
+generateBtn.addEventListener('click', async function() {
+    if (!validateForm()) {
+        showError('Please complete all required fields and upload a room image.');
+        return;
+    }
+    
+    // Show loading overlay
+    loadingOverlay.style.display = 'flex';
+    generateBtn.disabled = true;
+    
+    try {
+        const preferences = {
+            image_data: currentImageData,
+            design_style: styleSelect.value,
+            budget_range: selectedBudget,
+            color_theme: selectedColor,
+            room_type: roomTypeSelect.value,
+            furniture_preferences: selectedFurniture
+        };
+        
+        const response = await fetch('/generate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(preferences)
+        });
+        
+        const data = await response.json();
+        if (response.status === 200) {
+            // Display before image
+            beforeImage.src = `data:image/jpeg;base64,${data.before_image}`;
+            
+            // Display after image
+            afterImage.src = `data:image/jpeg;base64,${data.after_image}`;
+            
+            resultsSection.style.display = 'block';
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Store for download
+            currentGenerationId = data.generation_id;
+            currentOutputData = data.after_image;
+            
+            // Reset star ratings
+            feedbackStars.forEach(s => s.classList.remove('active'));
+            feedbackForm.style.display = 'none';
+            currentRating = 0;
+        } else {
+            showError(data.error || 'Generation failed. Please try again.');
+        }
+    } catch (error) {
+        showError('Error generating design. Please try again later.');
+        console.error(error);
+    } finally {
+        // Hide loading overlay
+        loadingOverlay.style.display = 'none';
+        generateBtn.disabled = false;
+    }
+});
+
+// Download handler
+downloadBtn.addEventListener('click', async function() {
+    if (!currentOutputData) {
+        showError('Please generate a design first.');
+        return;
+    }
+    
+    try {
+        const response = await fetch('/download', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                image_data: currentOutputData,
+                generation_id: currentGenerationId
+            })
+        });
+        
+        if (response.ok) {
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `velora-design-${currentGenerationId || 'output'}.jpg`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } else {
+            const error = await response.json();
+            showError(error.error || 'Download failed');
+        }
+    } catch (error) {
+        showError('Error downloading image');
+        console.error(error);
+    }
+});
+
+// Form validation
+function validateForm() {
+    if (!roomImageUploaded) return false;
+    if (!styleSelect.value) return false;
+    if (!selectedBudget) return false;
+    if (!selectedColor) return false;
+    if (!roomTypeSelect.value) return false;
+    if (selectedFurniture.length === 0) return false;
+    return true;
+}
+
+// Make the upload placeholder clickable
+uploadPlaceholder.addEventListener('click', function() {
+    document.getElementById('roomFileInput').click();
+});
+</script>
+</body>
+</html>

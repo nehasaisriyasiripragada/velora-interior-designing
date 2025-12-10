@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELORA | Contact Us</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-couch logo-icon"></i>
+                VELORA
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('dashboard') }}">Home</a>
+                <a href="{{ url_for('modelsafter') }}">Models</a>
+                <a href="{{ url_for('designafter') }}">Design</a>
+                <a href="{{ url_for('contactafter') }}" class="active">Contact</a>
+                <!-- Dynamic Login/Profile Section -->
+                <div id="auth-section">
+                    <!-- This will be populated by JavaScript -->
+                    <a href="{{ url_for('index') }}" class="login-btn">Logout</a>
+                </div>
+              
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="section-title">
+            <h2>Get In Touch</h2>
+        </div>
+
+        <div style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; padding: 0 2rem;">
+            <!-- Contact Form -->
+            <div>
+                <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; font-weight: 500;">Send Us a Message</h3>
+                <form style="display: grid; gap: 1.5rem;">
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem;">Your Name</label>
+                        <input type="text" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; background: white; font-family: inherit;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem;">Email Address</label>
+                        <input type="email" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; background: white; font-family: inherit;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem;">Phone Number</label>
+                        <input type="tel" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; background: white; font-family: inherit;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem;">Your Message</label>
+                        <textarea style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; background: white; font-family: inherit; height: 120px;"></textarea>
+                    </div>
+                    <button type="submit" class="view-btn" style="width: 100%; padding: 1rem; font-size: 1rem; border: none; background: var(--accent); color: white; cursor: pointer;">Submit Inquiry</button>
+                </form>
+            </div>
+
+            <!-- Contact Info -->
+            <div>
+                <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; font-weight: 500;">Contact Information</h3>
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--accent); font-weight: 500;"><i class="fas fa-map-marker-alt" style="margin-right: 0.8rem;"></i>Our Studio</h4>
+                    <p style="margin-left: 1.8rem;">123 Design Avenue<br></p>
+                </div>
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--accent); font-weight: 500;"><i class="fas fa-phone" style="margin-right: 0.8rem;"></i>Phone</h4>
+                    <p style="margin-left: 1.8rem;">(212) 555-1234<br>Mon-Fri: 9am-6pm EST</p>
+                </div>
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--accent); font-weight: 500;"><i class="fas fa-envelope" style="margin-right: 0.8rem;"></i>Email</h4>
+                    <p style="margin-left: 1.8rem;">info@veloradesign.com<br>inquiries@veloradesign.com</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div style="max-width: 1000px; margin: 4rem auto 0; padding: 0 2rem;">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            
+            <div class="faq-section">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How does VELORA use AI in the design process?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our AI analyzes thousands of design parameters including room dimensions, lighting conditions, and your personal style preferences to generate optimal layout suggestions. It then collaborates with our human designers who refine these concepts into bespoke solutions.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can AI really understand my personal style?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Through our style quiz and image recognition technology, our AI identifies patterns in your preferences with remarkable accuracy. It cross-references these with current trends and timeless design principles to suggest options you're likely to love.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How accurate are the AI-generated 3D renderings?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our photorealistic renderings have a 92% accuracy rate for color, texture, and spatial relationships. We always provide physical samples of key materials before finalizing any design to ensure complete satisfaction.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Does AI replace human designers at VELORA?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Not at all. Our AI serves as a powerful tool that enhances our designers' capabilities, allowing them to explore more options and focus on creative nuances while the AI handles data analysis and repetitive tasks.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>VELORA</h3>
+                <p>Creating beautiful, functional spaces that stand the test of time through thoughtful design and meticulous craftsmanship.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-houzz"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="models.html">Design Models</a>
+                <a href="login.html">Login/Signup</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Design Avenue, INDIA</p>
+                <p><i class="fas fa-phone"></i> (212) 555-1234</p>
+                <p><i class="fas fa-envelope"></i> info@veloradesign.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 VELORA Interior Design. All rights reserved.
+        </div>
+    </footer>
+    <script type="module" src="/static/js/app.js">
+            // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getDatabase, ref, push, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAFFdYvQ7JqHgMTlulOlBHdrL6x8gZPPZY",
+        authDomain: "contact1-a0fd2.firebaseapp.com",
+        projectId: "contact1-a0fd2",
+        storageBucket: "contact1-a0fd2.firebasestorage.app",
+        messagingSenderId: "484459908005",
+        appId: "1:484459908005:web:bca4250e40128ea1abb64c",
+        databaseURL: "https://contact1-a0fd2-default-rtdb.asia-southeast1.firebasedatabase.app"
+    };
+
+        
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    console.log("Firebase initialized!", app);
+
+    // Initialize Realtime Database
+    const db = getDatabase(app);
+    console.log("Database ready!", db);
+
+    // ✅ Example: write some test data
+    set(ref(db, 'test/path'), {
+    message: "Hello from Firebase v11!"
+    })
+    .then(() => console.log("Data written successfully!"))
+    .catch((error) => console.error("Write failed:", error));
+
+    // Reference to your database
+  const contactRef = ref(db, 'infos');
+// Handle form submission
+document.querySelector('form').addEventListener('submit', submitForm);
+
+function submitForm(e) {
+  e.preventDefault();
+  
+  // Get form values and trim whitespace
+  const name = document.querySelector('input[type="text"]').value.trim();
+  const email = document.querySelector('input[type="email"]').value.trim();
+  const phone = document.querySelector('input[type="tel"]').value.trim();
+  const message = document.querySelector('textarea').value.trim();
+
+  // Validation check
+  if (!name || !email || !phone || !message) {
+    showAlert("Something went wrong. Please fill out all fields.", "error");
+    return;
+  }
+
+  // Save to Firebase
+  saveContactInfo(name, email, phone, message);
+
+  // Reset form and show success message
+  e.target.reset();
+  showAlert('Thank you! Your message has been sent.', 'success');
+}
+
+function saveContactInfo(name, email, phone, message) {
+  const newContactRef = push(contactRef);
+
+  set(newContactRef, {
+    name: name,
+    email: email,
+    phone: phone,
+    message: message,
+    timestamp: serverTimestamp()
+  })
+  .then(() => console.log('Data saved successfully'))
+  .catch(error => {
+    console.error('Error saving data:', error);
+    showAlert('There was an error sending your message. Please try again.', 'error');
+  });
+}
+
+// Show alert message
+function showAlert(message, type) {
+  const alertDiv = document.createElement('div');
+  alertDiv.className = `alert ${type}`;
+  alertDiv.textContent = message;
+
+  const main = document.querySelector('main');
+  main.insertBefore(alertDiv, main.firstChild);
+
+  setTimeout(() => {
+    alertDiv.remove();
+  }, 5000);
+}
+
+       // FAQ functionality
+    const faqItems = document.querySelectorAll('.faq-item');
+        
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+           
+        question.addEventListener('click', () => {
+            item.classList.toggle('active');
+               
+            const icon = question.querySelector('i');
+            if (item.classList.contains('active')) {
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            } else {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        });
+    });
+    </script>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+          <p>Thank you! Your message has been sent successfully.</p>
+          <button id="closePopup">Close</button>
+        </div>
+    </div>
+      
+</body>
+</html>

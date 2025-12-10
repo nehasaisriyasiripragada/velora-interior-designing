@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maximizing Small Spaces with Intelligent Design | VELORA</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-couch logo-icon"></i>
+                VELORA
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('models') }}">Models</a>
+                <a href="{{ url_for('design') }}">Design</a>
+                <a href="{{ url_for('contact') }}">Contact</a>
+                <!-- Dynamic Login/Profile Section -->
+                <div id="auth-section">
+                    <!-- This will be populated by JavaScript -->
+                    <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-container">
+        <article>
+            <header class="article-header">
+                <p style="color: var(--accent); margin-bottom: 0.5rem;">DESIGN JOURNAL</p>
+                <h1>Maximizing Small Spaces with Intelligent Design</h1>
+                <p>March, 2025 | 6 min read</p>
+            </header>
+            
+            <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Small Space Design" class="article-image">
+            
+            <div class="article-content">
+                <p>Urban living often means compromising on square footage, but never on style or functionality. Our space optimization algorithms and design expertise can make any small space feel expansive and luxurious. Here are our proven techniques:</p>
+                
+                <h2>1. Vertical Space Utilization</h2>
+                <p>Our AI models calculate optimal storage configurations from floor to ceiling. Custom shelving units with built-in lighting can increase storage capacity by 300% while maintaining clean sight lines.</p>
+                
+                <h2>2. Transformative Furniture</h2>
+                <p>We source and design multi-functional pieces that serve 2-3 purposes:
+                <ul>
+                    <li>Murphy beds with integrated workspace</li>
+                    <li>Ottomans with hidden storage</li>
+                    <li>Expandable dining tables</li>
+                </ul>
+                Our space planning software tests each configuration for ergonomic comfort.</p>
+                
+                <h2>3. Light & Reflection</h2>
+                <p>Strategic placement of mirrors can double the perceived space. Our lighting simulations determine optimal fixture placement to eliminate shadows and create depth. The "VELORA Glow Ratio" ensures balanced illumination.</p>
+                
+                <h2>4. Color & Scale Strategies</h2>
+                <p>Contrary to popular belief, dark colors can work in small spaces when applied strategically. Our color algorithms create depth-enhancing palettes that:
+                <ul>
+                    <li>Use monochromatic schemes for continuity</li>
+                    <li>Incorporate vertical stripes to heighten ceilings</li>
+                    <li>Balance bold accents with neutral backgrounds</li>
+                </ul></p>
+                
+                <h2>5. Smart Zoning</h2>
+                <p>Instead of walls, we create visual separation using:
+                <ul>
+                    <li>Floor level changes (15cm height differences)</li>
+                    <li>Transparent room dividers</li>
+                    <li>Strategic furniture placement</li>
+                </ul>
+                Our motion studies ensure traffic flow remains unobstructed.</p>
+                
+                <h2>Case Study: 35sqm Apartment Transformation</h2>
+                <p>Using these techniques, we recently transformed a studio apartment into a functional home with distinct living, sleeping, working, and dining areas - all while maintaining an open, airy feel. The client reported a 70% improvement in daily functionality.</p>
+            </div>
+            
+            <a href="{{ url_for('index') }}" class="back-btn">
+                <i class="fas fa-arrow-left" style="margin-right: 0.5rem;"></i> Back to Home
+            </a>
+        </article>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>VELORA</h3>
+                <p>Creating beautiful, functional spaces that stand the test of time through thoughtful design and meticulous craftsmanship.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-houzz"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="models.html">Models</a>
+                <a href="login.html">Log-in</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Design Avenue</p>
+                <p><i class="fas fa-phone"></i> (212) 555-1234</p>
+                <p><i class="fas fa-envelope"></i> info@veloradesign.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 VELORA Interior Design. All rights reserved.
+        </div>
+    </footer>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
